@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="card-header">Kepegawaian</h2>
+        </div>
+        <div class="col-6 d-flex justify-content-end align-items-center">
+            <a class="btn btn-primary text-white" style="margin-right: 15px;"  matTooltip="Tambah Petugas"
+            matTooltipPosition="above" (click)="action()" ><i class="bx bx-plus"></i> Tambah</a>
+        </div>
+    </div>
+    <div class="table-responsive text-nowrap">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Nip</th>
+            <th>No Telepon</th>
+            <th>Tempat Wisata</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          <tr *ngFor="let value of petugas">
+            <td>{{value.nama}}</td>
+            <td>{{value.nip}}</td>
+            <td>{{value.no_telp}}</td>
+            <td>{{value.tempat_wisata.nama_tempat_wisata}}</td>
+            <td>
+                  <a class="btn btn-sm btn-success text-white"  matTooltip="Ubah"
+                  matTooltipPosition="above" style="margin-right: 15px;" (click)="action(value)"
+                    ><i class="bx bx-edit-alt"></i></a
+                  >
+                  <a class="btn btn-sm btn-danger text-white"  matTooltip="Hapus"
+                  matTooltipPosition="above" style="margin-right: 15px;" (click)="confirmBox(value.id)"
+                    ><i class="bx bx-trash"></i></a
+                  >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ngb-pagination
+      class="d-flex justify-content-end mt-3"
+      [(page)]="page"
+      [pageSize]="offset"
+      (pageChange)="getAllData($event)"
+      [collectionSize]="totalData">
+    </ngb-pagination>
+  </div>

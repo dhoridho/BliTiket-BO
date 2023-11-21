@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <form class="form-horizontal form-material" *ngIf="!isLoading">
+                <div class="row">
+                    <div class="form-group col-12 mb-3">
+                            <label class="form-label">Tarif Weekend</label>
+                            <input type="text" name="tarif_weekend" [(ngModel)]="tarifTicket.tarif_weekend"
+                                class="form-control" placeholder="Silahkan isi tarif weekend"> 
+                    </div>
+                    <div class="form-group col-12 mb-3">
+                            <label class="form-label">Tarif Weekday</label>
+                            <input type="text" name="tarif_weekday" [(ngModel)]="tarifTicket.tarif_weekday"
+                                class="form-control" placeholder="Silahkan isi tarif weekday"> 
+                    </div>
+                    <div class="form-group col-12 mb-3">
+                            <label class="form-label">Kuota</label>
+                            <input type="text" name="quota" [(ngModel)]="tarifTicket.quota"
+                                class="form-control" placeholder="Silahkan isi kuota"> 
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <div class="col-sm-12 pl-0 d-flex justify-content-end">
+                        <button class="btn btn-primary" (click)="submitData()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

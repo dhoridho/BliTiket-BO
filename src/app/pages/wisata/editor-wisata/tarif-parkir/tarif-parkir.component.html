@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="col-12 d-flex justify-content-end align-items-center mt-3 mb-3">
+        <a class="btn btn-sm btn-primary text-white" style="margin-right: 15px;" matTooltip="Tambah Tarif Parkir"
+        matTooltipPosition="above" (click)="action(idTempatWisata, null)" ><i class="bx bx-plus"></i> Tambah</a>
+    </div>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Tarif</th>
+                <th>Kuota</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                <tr *ngIf="tarifParkirLength === 0">
+                    <td colspan="3" class="text-center">Tidak Ada Data</td>
+                </tr>
+              <tr *ngFor="let value of tarifParkir">
+                <td>{{value.tarif}}</td>
+                <td>{{value.quota}}</td>
+                <td>
+                      <a class="btn btn-sm btn-success text-white"  style="margin-right: 15px;"  (click)="action(idTempatWisata,value)"
+                        ><i class="bx bx-edit-alt"></i></a>
+                      <a class="btn btn-sm btn-danger text-white"  style="margin-right: 15px;" (click)="confirmBox(value.id)"
+                        ><i class="bx bx-trash"></i></a>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

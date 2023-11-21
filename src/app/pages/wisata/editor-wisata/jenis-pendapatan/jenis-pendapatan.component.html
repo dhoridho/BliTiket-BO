@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="col-12 d-flex justify-content-end align-items-center mt-3 mb-3">
+    </div>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Persentase</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                <tr *ngIf="jenisPendapatanLength === 0">
+                    <td colspan="3" class="text-center">Tidak Ada Data</td>
+                </tr>
+              <tr *ngFor="let value of jenisPendapatan">
+                <td>{{value.jenis_pendapatan.name}}</td>
+                <td>{{value.amount + '%'}}</td>
+                <td>
+                      <a class="btn btn-sm btn-success text-white"  style="margin-right: 15px;"  (click)="action(value)"
+                        ><i class="bx bx-edit-alt"></i></a>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+::ng-deep .select2-selection--single{
+    margin-top: 8px !important;
+    height: 100%;
+  }
+  ::ng-deep .select2-selection__arrow{
+    margin-top: 8px !important;
+    height: 100%;
+  }
+
+  .cursor-pointer{
+    cursor: pointer;
+  }
+  
+    .btn-filter {
+      padding: 6px 10px;
+    }
+  
+    .dropdown-toggle:after, .dropend .dropdown-toggle:after {
+      display: none;
+    }
+  
+    .dropdown-filter-container {
+      width: 370px;
+    }
+  
+    .btn-submit{
+      width: 100%;
+    }
+    
+.container{
+    padding: 0 10px 0 10px;
+}
+.menu{
+    font-size: 16px;
+    padding: 5px 15px 7px 15px;
+    border-radius: 50px;
+    color: #07132B;
+    background-color: white;
+    border-color: white;
+    box-shadow: none;
+}
+
+.menu:focus{
+    font-size: 16px;
+    padding: 5px 15px 7px 15px;
+    border-radius: 50px;
+    background-color: #8DB1FF;
+    border-color: #8DB1FF;
+    color: white;
+}
+
+
+.menu:hover{
+    background-color: white !important;
+    border-color: white !important;
+    color: #07132B !important;
+}
+
+
+.summary-title{
+    color: #133378;
+}
+
+.label-summary{
+    color: #0E243A;
+}
+
+.donwload{
+    color: #686CFF;
+}
+
+.filter{
+    color: #686CFF;
+}

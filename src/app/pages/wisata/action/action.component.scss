@@ -1,0 +1,17 @@
+::ng-deep .select2-selection--single{
+    margin-top: 3px !important;
+    height: 50px !important;
+    border-color: #D9ddE3 !important;
+}
+
+::ng-deep .select2-container--default.select2-container--focus .select2-selection, .select2-container--default.select2-container--open .select2-selection{
+    border-color: #D9ddE3 !important;
+}
+
+::ng-deep .select2-container--default .select2-selection--single .select2-selection__rendered{
+    margin-top: 10px !important;
+}
+
+::ng-deep .select2-selection__arrow{
+    margin-top: 15px !important;
+}

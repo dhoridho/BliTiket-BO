@@ -1,0 +1,29 @@
+.description{
+ max-width: 200px;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+
+.description:focus, .ellipsis:hover {
+    color:transparent;
+    &:after{
+      content:attr(my-attr);
+      overflow: visible;
+      text-overflow: inherit;
+      background: #fff;
+      position: absolute;
+      left:auto;
+      top:auto;
+      width: auto;
+      border: 1px solid #eaebec;
+      padding: 0 .5rem;
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,.28);
+      white-space: nowrap;
+      word-wrap: break-word;
+      display:block;
+      color:black;
+      margin-top:-0.15rem;
+      z-index: 3;
+    }
+    }

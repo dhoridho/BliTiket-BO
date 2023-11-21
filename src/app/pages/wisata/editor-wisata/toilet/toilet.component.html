@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <form class="form-horizontal form-material">
+                <div class="row" *ngIf="toilet">
+                    <div class="form-group col-12">
+                        <label class="form-label">Kode Toilet</label>
+                        <input type="text" name="kode_toilet" [(ngModel)]="toilet.kode_toilet"
+                            class="form-control" placeholder="Silahkan isi kode toilet"> 
+                    </div>
+                    <div class="form-group col-12">
+                        <label class="form-label">Tarif</label>
+                        <input type="number" name="tarif" [(ngModel)]="toilet.tarif"
+                            class="form-control" placeholder="Silahkan isi tarif"> 
+                    </div>
+                    <div class="form-group col-12">
+                        <label class="form-label">Kouta</label>
+                        <input type="number" name="kuota" [(ngModel)]="toilet.quota"
+                            class="form-control" placeholder="Silahkan isi kouta"> 
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                    <div class="col-sm-12 pl-0 d-flex justify-content-end">
+                        <button class="btn btn-primary" (click)="submitData()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

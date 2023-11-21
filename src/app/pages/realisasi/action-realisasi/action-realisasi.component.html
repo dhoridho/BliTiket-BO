@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-md-6 pl-0">
+            <h3> <b> {{data ? 'Ubah' : 'Tambah'}} Realisasi</b></h3>
+        </div>
+        <div class="col-md-6 text-right pr-0 d-flex justify-content-end ">
+            <span [mat-dialog-close]><i class="fas fa-times"></i></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal form-material">
+                <div class="row">
+                    <div class="form-group col-12 mb-3">
+                        <div class="">
+                            <label class="form-label">Penerima</label>
+                            <select class="form-select" name="penerima" [(ngModel)]="realisasi.penerima">
+                                <option value="DISHUB">Dishub</option>
+                                <option value="ASURANSI">Asuransi</option>
+                                <option value="DISPAR">Dispar</option>
+                                <option value="Adhimatratama">Adhimatratama</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3" *ngIf="realisasi.penerima != 'Adhimatratama'">
+                        <label class="form-label">Lokasi</label>
+                        <select class="form-select" name="wisata" [(ngModel)]="realisasi.id_lokasi">
+                          <option *ngFor="let value of lokasi" [value]="value.id">{{value.nama_lokasi}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12 mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal Transfer</label>
+                            <input type="datetime-local" name="tanggal_transfer" [(ngModel)]="realisasi.tanggal_transfer"
+                                class="form-control"> 
+                        </div>
+                    </div>
+                    <div class="form-group col-12 mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Total Transfer</label>
+                            <input type="number" name="total_transfer" [(ngModel)]="realisasi.total_transfer"
+                                class="form-control"> 
+                        </div>
+                    </div>
+                    <div class="form-group col-12 mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Bukti Transfer</label><br>
+                            <img *ngIf="image" [src]="image" class="mb-4" (click)="openFile()" style="width: 20%;">
+                            <img *ngIf="!image && realisasi.bukti_url"  class="mb-4" [hidden]="!realisasi.bukti_url" (click)="openFile()" [src]=" realisasi.bukti_url" width="20%" >
+                            <input type="file" name="bukti" (change)="onFileChange($event)" id="upload" accept="image/*"
+                                class="form-control"> 
+                        </div>
+                    </div>
+                    <div class="form-group col-12 d-flex align-items-center justify-content-end b-0">
+                        <button class="btn btn-success" (click)="submitData()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

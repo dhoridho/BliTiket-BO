@@ -1,0 +1,63 @@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme h-100 position-relative" [ngClass]="{'collapse-sidebar':collapseSidebar}">
+    <div class="btn-collapse-container" (click)="collapseSidebar = !collapseSidebar"> 
+        <div class="btn-collapse">
+            <i [hidden]="collapseSidebar" class="bx bx-chevron-left align-middle text-white"></i>
+            <i [hidden]="!collapseSidebar" class="bx bx-chevron-right align-middle text-white"></i>
+        </div>
+    </div>
+    <!-- ! Hide app brand if navbar-full -->
+    <div class="app-brand demo">
+        <a href="javascript:void(0)" class="app-brand-link">
+            <span class="app-brand-logo demo">
+                <a routerLink="/dashboard">
+                    <img [hidden]="collapseSidebar" src="assets/image/BliTiket.svg" width="250" style="margin-left:-13%" alt="">
+                </a>
+                <a href="javascript:void(0);" (click)="unexpandMenu()" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </span>
+            <!-- <span class="app-brand-text demo menu-text fw-bold ms-2">PAD Lampung</span> -->
+        </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+    <!-- <ul class="menu-inner py-1 sidebar">
+        <li class="menu-item" *ngFor="let navigation of navigation.navigation" [routerLinkActive]="'active'" [id]="'menu-'+navigation.id">
+            <a *ngIf="navigation.type === 'item'" [routerLink]="navigation.url" class="menu-link">
+                <i class="menu-icon tf-icons" [ngClass]="navigation.icon"></i>
+                <div>{{navigation.title}}</div>
+            </a>
+            <a *ngIf="navigation.type === 'group'"  class="menu-link menu-toggle" (click)="dropDownCLick($event)" [id]="navigation.id">
+                <i class="menu-icon tf-icons" [ngClass]="navigation.icon" ></i>
+                <div>{{navigation.title}}</div>
+            </a>
+            <ul class="menu-sub" *ngIf="navigation.type === 'group'" >
+                <li *ngFor="let children of navigation.children" class="menu-item" [routerLinkActive]="'active'">
+                    <a [routerLink]="navigation.url + children.url" class="menu-link">
+                        <div>{{children.title}}</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul> -->
+    <ul class="menu-inner py-1 sidebar">
+        <li class="menu-item" *ngFor="let navigation of navigationData" [routerLinkActive]="'active'" [id]="'menu-'+navigation.id">
+            <a *ngIf="navigation.child.length === 0" [routerLink]="navigation.url" class="menu-link">
+                <i class="menu-icon tf-icons" [ngClass]="navigation.icon" [matTooltip]="navigation.menu_name"></i>
+                {{!collapseSidebar ? navigation.menu_name : ''}}
+            </a>
+            <a *ngIf="navigation.child.length !== 0"  class="menu-link menu-toggle pointer" (click)="dropDownCLick(navigation.id)" [id]="navigation.id">
+                <i class="menu-icon tf-icons" [ngClass]="navigation.icon" [matTooltip]="navigation.menu_name" (click)="dropDownCLick(navigation.id)"></i>
+                {{!collapseSidebar ? navigation.menu_name : ''}}
+            </a>
+            <ul class="menu-sub" *ngIf="navigation.child.length !== 0" >
+                <li *ngFor="let children of navigation.child" class="menu-item" [routerLinkActive]="'active'">
+                    <a [routerLink]="navigation.url + children.url" class="menu-link" [matTooltip]="children.menu_name" [matTooltipPosition]="'left'">
+                        {{!collapseSidebar ? children.menu_name : ''}}
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+

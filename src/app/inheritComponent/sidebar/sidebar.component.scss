@@ -1,0 +1,49 @@
+.collapse-sidebar {
+    width: 65px;
+}
+
+.menu-link {
+    background-color: transparent !important;
+    text-decoration: none;
+}
+
+.app-brand .layout-menu-toggle {
+    background-color: #435EBE !important;
+    top: 2rem;
+}
+
+.sidebar{
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.menu-vertical .menu-inner>.menu-item .menu-link {
+    margin: 0px 0px 0px 15px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.btn-collapse {
+    border-radius: 100px;
+    background-color: #435ebe;
+    padding: 3px;
+    
+}
+.btn-collapse-container {
+    cursor: pointer;
+    border-radius: 100px;
+    position:absolute;
+    right: -15px;
+    top: 15px;
+    z-index: 1;
+    padding: 8px;
+    background-color: #F5F5F9;
+}
+@media screen and (max-width:1199px) {
+    .btn-collapse-container {
+        display: none;
+    }
+}

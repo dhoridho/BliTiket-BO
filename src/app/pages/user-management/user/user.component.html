@@ -1,0 +1,57 @@
+<div class="card">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="card-header">Pengguna</h2>
+        </div>
+        <div class="col-6 d-flex justify-content-end align-items-center">
+            <a class="btn btn-primary text-white" style="margin-right: 15px;"  matTooltip="Tambah Pengguna"
+            matTooltipPosition="above" (click)="action()" ><i class="bx bx-plus"></i> Tambah</a>
+        </div>
+    </div>
+    <div class="table-responsive text-nowrap">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Tipe Pengguna</th>
+            <th>Nama Petugas</th>
+            <th>Role</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          <tr *ngFor="let value of users">
+            <td>{{value.email}}</td>
+            <td *ngIf="value.tipe_user == '1'">User Web</td>
+            <td *ngIf="value.tipe_user == '2'">User Parkir</td>
+            <td *ngIf="value.tipe_user == '3'">User Tiket</td>
+            <td *ngIf="value.tipe_user == '4'">User Kabupaten</td>
+            <td *ngIf="value.tipe_user == '6'">Dinas Kabupaten</td>
+            <td>{{value.petugas.nama}}</td>
+            <td>{{value.role.role_name}}</td>
+            <td>
+                  <a class="btn btn-sm btn-success text-white"  matTooltip="Ubah"
+                  matTooltipPosition="above" style="margin-right: 15px;" (click)="action(value)"
+                    ><i class="bx bx-edit-alt"></i></a
+                  >
+                  <a class="btn btn-sm btn-danger text-white"  matTooltip="Hapus"
+                  matTooltipPosition="above" style="margin-right: 15px;" (click)="confirmBox(value.id)"
+                    ><i class="bx bx-trash"></i></a
+                  >
+                  <a class="btn btn-sm btn-secondary text-white"  matTooltip="Atur Ulang Kata Sandi"
+                  matTooltipPosition="above" (click)="confirmBoxResetPassword(value.id)"
+                    ><i class="bx bx-reset"></i></a
+                  >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ngb-pagination
+      class="d-flex justify-content-end mt-3"
+      [(page)]="page"
+      [pageSize]="offset"
+      (pageChange)="getAllData($event)"
+      [collectionSize]="this.totalData">
+    </ngb-pagination>
+  </div>

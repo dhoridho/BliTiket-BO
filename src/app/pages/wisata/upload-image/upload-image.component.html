@@ -1,0 +1,39 @@
+    <div class="row">
+        <div class="col-6">
+            <h2 class="card-header">Foto</h2>
+        </div>
+        <div class="col-6 d-flex justify-content-end align-items-center">
+            <a class="btn btn-primary text-white" style="margin-right: 15px;" (click)="action(wisataId,null)" ><i class="bx bx-plus"></i> Tambah</a>
+        </div>
+    </div>
+    <div class="table-responsive text-nowrap p-3">
+      <div class="mb-3">
+        <label class="form-label">Ref Type</label>
+        <select class="form-select" (change)="getByRefType()"  name="refType" [(ngModel)]="wisataData.ref_type">
+            <option *ngFor="let val of refType" [value]="val.value">{{val.refTypeName}}</option>
+        </select>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Ref Type</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          <tr *ngIf="uploadImageData?.length === 0">
+            <td colspan="3" class="text-center">Tidak Ada Data</td>
+          </tr>
+          <tr *ngFor="let value of uploadImageData">
+            <td><img [src]="imgUrl + value.file_name" width="40%"></td>
+            <td>{{value.ref_type}}</td>
+            <td>
+                <a class="btn btn-sm btn-success text-white" (click)="action(wisataId,value)" style="margin-right: 15px;" 
+                  ><i class="bx bx-edit-alt"></i></a>
+                <a class="btn btn-sm btn-danger text-white" (click)="confirmBox(value.id)" style="margin-right: 15px;"><i class="bx bx-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>

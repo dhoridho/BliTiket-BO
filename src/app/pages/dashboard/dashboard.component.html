@@ -1,0 +1,392 @@
+<div class="flex-grow-1 container-p-y pt-0">
+  <div class="row mb-3">
+    <div class="col-12 pr-4 d-flex justify-content-end align-items-center">
+      <div ngbDropdown placement="left-top">
+        <div class="filter d-flex mb-3 cursor-pointer" ngbDropdownToggle>
+        <i class='bx bx-filter'></i>
+        </div>
+        <div ngbDropdownMenu aria-labelledby="filter-dropdown" class="dropdown-filter-container">
+          <form class="px-4 py-3">
+            <div class="row">
+              <div class="filter-list">
+                <div class="form-check mb-2">
+                  <label class="form-check-label cursor-pointer" [ngClass]="{'text-primary font-weight-bold': type === 'tahun'}" (click)="type = 'tahun'; filterByMonth()">Tahun Ini</label>
+                </div>
+                <div class="form-check mb-2">
+                  <label class="form-check-label cursor-pointer" [ngClass]="{'text-primary font-weight-bold': type === 'bulan'}" (click)="type = 'bulan'; filterByMonth()">Bulan Ini</label>
+                </div>
+                <div class="form-check mb-2">
+                  <label class="form-check-label cursor-pointer" [ngClass]="{'text-primary font-weight-bold': type === 'minggu'}" (click)="type = 'minggu'; filterByMonth()">Minggu Ini</label>
+                </div>
+                <div class="form-check mb-3">
+                  <label class="form-check-label cursor-pointer" [ngClass]="{'text-primary font-weight-bold': type === 'hari'}" (click)="type = 'hari'; filterByMonth()">Hari Ini</label>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="row">
+      <div  [ngClass]="{ 'col-lg-6' : tipeUser === '4', 'col-lg-5' : tipeUser !== '4'}" class="mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between ">
+              <span class="label-wisata">{{tipeUser === '1' ? 'Adhimatratama' : tipeUser === '4' ? 'PAD' : 'Pendapatan Transaksi'}}</span>
+              <span>{{tipeUser === '1' ? twoDigitDecimal(totalPendapatan.persentase_pesat) : twoDigitDecimal(totalPendapatan.persentase_dishub + totalPendapatan.persentase_dispar + totalPendapatan.persentase_asuransi)}}%</span>
+            </div>
+            <h1 class="card-title text-nowrap mb-1 summary-title">{{currencyFormat(tipeUser === '1' ? roundNumber(totalPendapatan.pesat) : roundNumber(totalPendapatan.dishub + totalPendapatan.dispar + totalPendapatan.asuransi))}}</h1>
+            <!-- <canvas id="lembaga"></canvas> -->
+            <div id="chart">
+              <apx-chart
+                [series]="chartOptionsLembaga.series!"
+                [chart]="chartOptionsLembaga.chart!"
+                [xaxis]="chartOptionsLembaga.xaxis!"
+                [yaxis]="chartOptionsLembaga.yaxis!"
+                [grid]="chartOptionsLembaga.grid!"
+                [stroke]="chartOptionsLembaga.stroke!"
+                [tooltip]="chartOptionsLembaga.tooltip!"
+                [dataLabels]="chartOptionsLembaga.dataLabels!"
+              ></apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-12 mb-4" *ngIf="tipeUser == '4'">
+        <div class="card">
+          <div class="card-body">
+              <div class="row">
+              <h2 class="label-wisata header mb-3">Alokasi PAD</h2>
+              <div class="mt-2 col-6 mb-2">
+                <h3 class="mb-1"><strong>Dinas Pariwisata</strong></h3>
+                <span>{{currencyFormat(roundNumber(totalPendapatan.dishub)) }}</span>
+              </div>
+              <div class="mt-2 col-6 mb-2 d-flex justify-content-end align-items-center">
+                <span class="color-primary">{{twoDigitDecimal(totalPendapatan.persentase_dishub)}}%</span>
+              </div>
+              <div class="mt-2 col-6 mb-2">
+                <h3 class="mb-1"><strong>Peng. Lahan Dispar</strong></h3>
+                <span>{{currencyFormat(roundNumber(totalPendapatan.dispar)) }}</span>
+              </div>
+              <div class="mt-2 col-6 mb-2 d-flex justify-content-end align-items-center">
+                <span class="color-primary">{{twoDigitDecimal(totalPendapatan.persentase_dispar)}}%</span>
+              </div>
+              <div class="mt-2 col-6 mb-2">
+                <h3 class="mb-1"><strong>Jasa Raharja</strong></h3>
+                <span>{{currencyFormat(roundNumber(totalPendapatan.asuransi)) }}</span>
+              </div>
+              <div class="mt-2 col-6 mb-2 d-flex justify-content-end align-items-center">
+                <span class="color-primary">{{twoDigitDecimal(totalPendapatan.persentase_asuransi)}}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 col-12 mb-4" *ngIf="tipeUser !== '4'">
+        <div class="card">
+          <div class="card-body">
+            <span class="label-wisata">Pendapatan Transaksi</span>
+            <h1 class="card-title text-nowrap mb-1 summary-title">{{currencyFormat(totalPendapatan.total_pendapatan)}}</h1>
+            <!-- <canvas id="pendapatanTransaksi"></canvas> -->
+            <div id="chart">
+              <apx-chart
+                [series]="chartOptionsPendapatan.series!"
+                [chart]="chartOptionsPendapatan.chart!"
+                [xaxis]="chartOptionsPendapatan.xaxis!"
+                [yaxis]="chartOptionsPendapatan.yaxis!"
+                [grid]="chartOptionsPendapatan.grid!"
+                [stroke]="chartOptionsPendapatan.stroke!"
+                [tooltip]="chartOptionsPendapatan.tooltip!"
+                [dataLabels]="chartOptionsPendapatan.dataLabels!"
+              ></apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 mb-4" [ngClass]="{ 'col-lg-3' : tipeUser === '4', 'col-lg-2' : tipeUser !== '4'}">
+        <div class="card d-flex align-items-center">
+          <div class="card-body d-flex flex-column justify-content-center align-items-center">
+            <div class="d-flex align-items-center justify-content-center">
+              <i class='bx bx-happy icon icon-happy color-primary text-center'></i>
+            </div>
+            <div class="d-flex justify-content-center">
+              <h1 class="mb-0"><strong> {{totalPendapatan.total_ticket || 0}}</strong></h1>
+            </div>
+            <div class="d-flex justify-content-center">
+              <h4><span>Visitor</span></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <owl-carousel-o class="pr-0 pl-0" [options]="customOptions" *ngIf="tipeUser !== '5'">
+        <ng-container *ngFor="let value of pendapatanByWisata; let i = index" style="max-width: 400px">
+          <ng-template carouselSlide>
+            <div class="card mb-4 ml-3 mr-3" style="width: 350px">
+              <div class="card-body">
+                <span class="label-wisata">{{value.nama_tempat_wisata}}</span>
+                <h1 class="card-title text-nowrap mb-1 summary-title">{{currencyFormat(tipeUser == 1 ? value.total : (roundNumber(value.Dinas_Pariwisata + value.Jasa_Raharja + value.Pengelolaan_lahan_Dispar)))}}</h1>
+                  <i class='bx bxs-coupon ico-small color-primary mr-2'></i>
+                  <span class="font-weight-bold text-primary"> Tiket {{value.total_tiket}}</span>
+                <div class="pembagian-container mt-3">
+                  <div *ngFor="let jenis of value | keyvalue" class="d-flex justify-content-between" [ngClass]="{'d-none' : jenis.key === 'id' || jenis.key === 'nama_tempat_wisata' || jenis.key === 'total'}">
+                    <span *ngIf="jenis.key != 'total_tiket' && jenis.key != 'id' && jenis.key != 'nama_tempat_wisata' && jenis.key != 'total'">{{modifyValue('_', jenis.key)}}</span>
+                    <span *ngIf="jenis.key != 'total_tiket' && jenis.key != 'id' && jenis.key != 'nama_tempat_wisata' && jenis.key != 'total'">{{currencyFormat(roundNumber(jenis.value || 0))}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    </div>
+    <!-- <div class="col-12 pr-0 pl-0 mb-4">
+      <div class="header">
+        <div class="card">
+          <div class="card-body">
+            <h3>Transportasi</h3>
+            <div class="row">
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-car.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Darat</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-motorcycle.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Sepeda Motor</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-ship.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Kapal Kecil</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-medium-ship.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Kapal Sedang</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 pr-0 pl-0 mb-4">
+      <div class="header">
+        <div class="card">
+          <div class="card-body">
+            <h3>Aktifitas</h3>
+            <div class="row">
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-snorkling.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Snorkling</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-jetski.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Jetski</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-banana-boat.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Banana Boat</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-canoeing.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Canoeing</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 pr-0 pl-0 mb-4">
+      <div class="header">
+        <div class="card">
+          <div class="card-body">
+            <h3>Lainnya</h3>
+            <div class="row">
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-store.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Warung</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-food.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Makanan</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-drink.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Minuman</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-3">
+                <div class="row">
+                  <div class="col-2 mr-3">
+                    <img src="assets/image/icon-souvenir.svg" alt="" srcset="">
+                  </div>
+                  <div class="col-6">
+                    <div class="trans">
+                      <span class="trans-detail">Souvenir</span>
+                    </div>
+                    <div class="price-trans">
+                      <p class="label-wisata">Rp. 0</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row pl-3 pr-3" *ngIf="tipeUser !== '5'">
+      <!-- Basic Bootstrap Table -->
+      <div class="card">
+        <div class="table-responsive text-nowrap mb-3">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nama Tempat</th>
+                <th>Lokasi</th>
+                <th>Petugas</th>
+                <!-- <th>Perangkat</th> -->
+                <th>Pendapatan</th>
+                <!-- <th class="text-center">CCTV</th> -->
+              </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+              <tr *ngFor="let value of laporanWisataList">
+                <td>{{value.tempat_wisata}}</td>
+                <td>{{value.lokasi}}</td>
+                <td>{{value.jumlah_petugas}}</td>
+                <!-- <td><span class="text-success">Online</span></td> -->
+                <td>{{currencyFormat(roundNumber(value.total_pendapatan))}}</td>
+                <!-- <td><button class="btn btn-xs btn-primary border-0" disabled>Lihat</button></td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ngb-pagination
+          class="d-flex justify-content-center"
+          [(page)]="page"
+          [pageSize]="offset"
+          (pageChange)="getLaporanWisataList($event)"
+          [collectionSize]="this.totalLaporanWisata">
+        </ngb-pagination>
+      </div>
+    </div>
+</div>

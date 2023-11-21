@@ -1,0 +1,59 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// SCROLLBAR
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 10px 0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #435EBE;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+}
+
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.mat-tab-labels{
+    justify-content: space-between !important;
+}
+
+
+.custom-dialog-container .mat-dialog-container {
+    padding: 0;
+    overflow: hidden;
+}
+
+.color-black{
+    color: black;
+}
+/* Importing Bootstrap SCSS file. */
+// @import '~bootstrap/scss/bootstrap';

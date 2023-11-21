@@ -1,0 +1,28 @@
+
+.image-preview {
+    .modal-body {
+        text-align: center;
+        position: relative;
+    }
+}
+
+.img-fluid{
+    height: 300px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.mat-dialog-container{
+    padding: 0 !important;
+}
+
+.close{
+    position: absolute;
+    right: 11px;
+    top: 10px;
+}
+
+.x{
+    color: lightgray;
+    font-size: 30px;
+}

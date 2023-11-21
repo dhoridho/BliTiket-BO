@@ -1,0 +1,184 @@
+<div class="card">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="card-header pr-0 pb-2">Jumlah {{totalPendapatan | currency:'Rp'}}</h2>
+        </div>
+        <div class="col-6 pr-4 d-flex justify-content-end align-items-center">
+          <div ngbDropdown placement="left-top">
+            <button type="button" class="btn btn btn-primary btn-filter" id="filter-dropdown" ngbDropdownToggle>
+              <i class='bx bx-filter color-white'></i>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="filter-dropdown" class="dropdown-filter-container">
+              <form class="px-4 py-3">
+                <div class="row">
+                  <div class="mb-3 col-6">
+                    <label>Tanggal Awal</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="exampleDropdownFormEmail1"
+                      placeholder="Start Date"
+                      autocomplete="tanggal mulai"
+                      [(ngModel)]="filterTransaksi.startDate"
+                    />
+                  </div>
+                  <div class="mb-3 col-6">
+                    <label>Tanggal Akhir</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="exampleDropdownFormPassword1"
+                      placeholder="End Date"
+                      autocomplete="tanggal akhir"
+                      [(ngModel)]="filterTransaksi.endDate"
+                    />
+                  </div>
+                  <div class="mb-3 col-12">
+                    <label>Metode</label>
+                   <select name="metode" class="form-control" [(ngModel)]="filterTransaksi.metodePembayaran">
+                    <option value="">Semua Metode</option>
+                    <option value="cash">Cash</option>
+                    <option value="online">Pembayaran Online</option>
+                   </select>
+                  </div>
+                  <div class="mb-3 col-6">
+                    <label class="mb-2">Tempat</label>
+                    <select2
+                      [data]="wisata"
+                      (update)="update('value1', $event)"
+                      (search)="search('search1')"
+                      [placeholder]="'Pilih Tempat'"
+                      resettable
+                      [(ngModel)]="filterTransaksi.idTempatWisata"
+                      id="selec2-1"
+                  >
+                  </select2> 
+                  </div>
+                  <div class="mb-3 col-6">
+                    <label>Petugas</label>
+                    <select2
+                      [data]="petugas"
+                      (update)="updatePetugas('value1', $event)"
+                      (search)="searchPetugas('search1')"
+                      [placeholder]="'Pilih Petugas'"
+                      resettable
+                      [(ngModel)]="filterTransaksi.idPetugas"
+                      id="selec2-1"
+                  >
+                  </select2> 
+                  </div>
+                  <div class="mb-3 col-6">
+                    <label>Transaksi</label>
+                    <select class="form-select" name="transaksi" [(ngModel)]="filterTransaksi.transaction">
+                      <option value="">Semua</option>
+                      <option value="Website">Website</option>
+                      <option value="Loket">Loket</option>
+                    </select>
+                  </div>
+                  <div class="mb-3 col-6">
+                    <label>Item</label>
+                    <select class="form-select" name="item" [(ngModel)]="filterTransaksi.item">
+                      <option value="">Semua</option>
+                      <option value="Loket">Tiket</option>
+                      <option value="Parkir">Parkir</option>
+                      <option value="Umum">Umum</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- <div class="mb-3">
+                  <label>Petugas</label>
+                  <select2
+                    [data]="wisata"
+                    (update)="update('value1', $event)"
+                    (change)="change('change1', $event)"
+                    (search)="search('search1')"
+                    [placeholder]="'Pilih petugas'"
+                    resettable
+                    id="selec2-1"
+                >
+                </select2> 
+                </div>
+                <div class="mb-3">
+                  <label>Transaksi</label>
+                  <select2
+                    [data]="wisata"
+                    (update)="update('value1', $event)"
+                    (change)="change('change1', $event)"
+                    (search)="search('search1')"
+                    [placeholder]="'Pilih transaksi'"
+                    resettable
+                    id="selec2-1"
+                >
+                </select2> 
+                </div>
+                <div class="mb-3">
+                  <label>Item</label>
+                  <select2
+                    [data]="wisata"
+                    (update)="update('value1', $event)"
+                    (change)="change('change1', $event)"
+                    (search)="search('search1')"
+                    [placeholder]="'Pilih item'"
+                    resettable
+                    id="selec2-1"
+                >
+                </select2> 
+                </div> -->
+                <div class="button">
+                  <button type="submit" class="btn btn-primary btn-submit" (click)="getAllTransaksi()">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <a class="btn btn-primary text-white ml-3" style="margin-right: 15px;"  matTooltip="Export Excel"
+            matTooltipPosition="above" (click)="exportExcel()" ><i class='bx bxs-file-export'></i> Export</a>
+        </div>
+    </div>
+    <div class="table-responsive text-nowrap">
+      <table matSort (matSortChange)="sortData($event)" class="table table-hover">
+        <thead>
+          <tr>
+            <th mat-sort-header="nama_tempat"> Nama Tempat</th>
+            <th mat-sort-header="tanggal">Tanggal</th>
+            <th mat-sort-header="transaksi">Transaksi</th>
+            <th mat-sort-header="no_transaksi">ID Transaksi</th>
+            <!-- <th>Item</th> -->
+            <th mat-sort-header="metode">Metode</th>
+            <th mat-sort-header="total">Total</th>
+            <th mat-sort-header="jumlah_tiket">Jumlah Tiket</th>
+            <th mat-sort-header="kontak">Kontak</th>
+            <th mat-sort-header="email">Email</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+            <tr *ngIf="transaksi?.length === 0">
+                <td colspan="9" class="text-center">Tidak Ada Data</td>
+            </tr>
+          <tr *ngFor="let value of transaksi">
+            <td>{{value.tempat_wisata.nama_tempat_wisata}}</td>
+            <td>{{value.created_at | date : 'dd MMM yyyy HH:mm'}}</td>
+            <td>{{value.email ? 'Website' : 'Loket'}}</td>
+            <td>{{value.no_transaksi}}</td>
+            <td>{{value.metode_pembayaran}}</td>
+            <td>{{value.total_bayar | currency:'Rp'}}</td>
+            <td>{{value.jumlah_tiket}}</td>
+            <td>{{value.no_telp || '-'}}</td>
+            <td>{{value.email || '-'}}</td>
+            <!-- <td *ngIf="value.status_bayar == 1">
+                Belum Bayar
+            </td>
+            <td *ngIf="value.status_bayar == 2">
+                Sudah Bayar
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ngb-pagination
+      class="d-flex justify-content-end mt-3"
+      [(page)]="page"
+      [pageSize]="offset"
+      (pageChange)="getAllTransaksi($event)"
+      [collectionSize]="totalData">
+    </ngb-pagination>
+  </div>

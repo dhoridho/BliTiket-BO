@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-md-6 pl-0">
+            <h3> <b> {{data ? 'Ubah' : 'Tambah'}} Lokasi</b></h3>
+        </div>
+        <div class="col-md-6 text-right pr-0 d-flex justify-content-end ">
+            <span [mat-dialog-close]><i class="fas fa-times"></i></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal form-material">
+                <div class="row">
+                    <div class="form-group col-9 mb-3">
+                        <div class="mb-3">
+                            <label class="form-label">Alamat</label>
+                            <input type="text" name="nama_lokasi" [(ngModel)]="lokasiData.nama_lokasi"
+                                class="form-control" placeholder="Silahkan isi Alamat"> 
+                        </div>
+                    </div>
+                    <div class="form-group col-3 d-flex align-items-center mb-0">
+                        <button class="btn btn-success" (click)="submitData()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

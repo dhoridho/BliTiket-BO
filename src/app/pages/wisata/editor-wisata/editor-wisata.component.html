@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-md-6 pl-0">
+            <h3> <b> Editor Wisata</b></h3>
+        </div>
+        <div class="col-md-6 text-right pr-0 d-flex justify-content-end ">
+            <span [mat-dialog-close]><i class="fas fa-times"></i></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal form-material">
+                <div class="form-group row mb-4">
+                    <div class="mb-3">
+                        <label class="form-label">Nama Tempat Wisata</label>
+                        <input type="text"  name="email" [(ngModel)]="wisataData.nama_tempat_wisata" class="form-control" disabled=""> 
+                    </div>
+                </div>
+                <mat-tab-group>
+                    <mat-tab label="Tarif Parkir">
+                        <app-tarif-parkir [tarifParkir]="wisata.tarif_parkir" [tarifParkirLength]="wisata.tarif_parkir.length" [refreshData]="getWisataById" [idTempatWisata]="wisata.id"></app-tarif-parkir>
+                    </mat-tab>
+                    <mat-tab label="Tarif Tiket"> 
+                        <app-tarif-tiket [tarifTicket]="wisata.tarif_tiket" [idTempatWisata]="wisata.id"></app-tarif-tiket>
+                    </mat-tab>
+                    <mat-tab label="Toilet">
+                        <app-toilet [toilet]="wisata.toilet" [idTempatWisata]="wisata.id"></app-toilet>
+                    </mat-tab>
+                    <mat-tab label="Jenis Pendapatan">
+                        <app-jenis-pendapatan [jenisPendapatan]="wisata.hasil_pendapatan_usaha" [jenisPendapatanLength]="wisata.hasil_pendapatan_usaha.length" [refreshData]="getWisataById" [idTempatWisata]="wisata.id"></app-jenis-pendapatan>
+                    </mat-tab>
+                  </mat-tab-group>
+            </form>
+        </div>
+    </div>
+</div>

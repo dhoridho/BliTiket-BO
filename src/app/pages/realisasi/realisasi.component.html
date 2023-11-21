@@ -1,0 +1,172 @@
+<div class="container">
+  <div class="d-flex justify-content-end">
+    <div class="col-6 pr-4 d-flex justify-content-end align-items-center">
+      <div ngbDropdown placement="left-top">
+        <div class="filter d-flex mb-3 cursor-pointer" ngbDropdownToggle>
+        <i class='bx bx-filter'></i>
+        </div>
+        <div ngbDropdownMenu aria-labelledby="filter-dropdown" class="dropdown-filter-container">
+          <form class="px-4 py-3">
+            <div class="row">
+              <div class="filter-list">
+                <div class="form-check mb-2">
+                  <input type="radio" class="form-check-input" [(ngModel)]="filterRealisasi.type" name="filter" id="1" [value]="1">
+                  <label class="form-check-label">Tahun Ini</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input type="radio" class="form-check-input" [(ngModel)]="filterRealisasi.type" name="filter" id="2" [value]="2">
+                  <label class="form-check-label">Hari Ini</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input type="radio" class="form-check-input" [(ngModel)]="filterRealisasi.type" name="filter" id="3" [value]="3">
+                  <label class="form-check-label">Rentang Tanggal</label>
+                </div>
+              </div>
+              <div class="mb-3" *ngIf="filterRealisasi.type === 3">
+                <label>{{labelFilter.rentanTanggal}}</label>
+                <div class="custom d-flex">
+                  <input
+                    type="date"
+                    id="tanggalMulai"
+                    class="form-control"
+                    name="startDate"
+                    [(ngModel)]="filterRealisasi.startDate"
+                  />
+                  <input
+                    type="date"
+                    class="form-control"
+                    name="endDate"
+                    [(ngModel)]="filterRealisasi.endDate"
+                  />
+                </div>
+              </div>
+            <div class="button">
+              <button type="submit" class="btn btn-primary btn-submit" (click)="getRealisasi()">Submit</button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="row mb-4" *ngIf="tipeUser != 5 && tipeUser != 4">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <span class="label-summary">Pend. Tunai</span>
+                <h1 class="card-title text-nowrap mb-1 summary-title">{{totalPRealisasi.total_cash | currency: 'Rp.'}}</h1>
+              </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <span class="label-summary">Pend. Non Tunai</span>
+                <h1 class="card-title text-nowrap mb-1 summary-title">{{totalPRealisasi.total_non_cash | currency: 'Rp.'}}</h1>
+              </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <span class="label-summary">Total Transfer</span>
+                <h1 class="card-title text-nowrap mb-1 summary-title">{{totalPRealisasi.total_transfer | currency: 'Rp.'}}</h1>
+              </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <span class="label-summary">Balance</span>
+                <h1 class="card-title text-nowrap mb-1 summary-title">{{totalPRealisasi.balance | currency: 'Rp.'}}</h1>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="tipeUser == 5 || tipeUser == 4">
+        <div class="col-4">
+            <div class="card mb-4">
+              <div class="card-body">
+                <span class="label-summary">Data Pendapatan</span>
+                <h1 class="card-title text-nowrap mb-1 summary-title">{{totalPRealisasi.total_pendapatan | currency: 'Rp.'}}</h1>
+              </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card mb-4">
+              <div class="card-body">
+                <span class="label-summary">Total Penerimaan</span>
+                <h1 class="card-title text-nowrap mb-1 summary-title">{{totalPRealisasi.total_transfer |currency: 'Rp.'}}</h1>
+              </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card mb-4">
+              <div class="card-body">
+                <span class="label-summary">Balance</span>
+                <h1 class="card-title text-nowrap mb-1 summary-title">{{totalPRealisasi.balance | currency: 'Rp.'}}</h1>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <!-- Basic Bootstrap Table -->
+      <div class="card">
+          <div class="row p-4 justify-content-end ">
+                <div class="col-3 d-flex justify-content-end">
+                    <a class="btn btn-primary text-white mr-3"  matTooltip="Cetak"
+                    matTooltipPosition="above" (click)="exportExcel()" ><i class='bx bx-printer'></i> Cetak</a>
+                    <a *ngIf="tipeUser == 1" class="btn btn-primary text-white"  matTooltip="Tambah"
+                    matTooltipPosition="above" (click)="onAdd()" ><i class="bx bx-plus"></i> Tambah</a>
+                </div>
+          </div>
+        <div class="table-responsive text-nowrap">
+          <table matSort (matSortChange)="sortData($event)" class="table table-hover">
+              <thead>
+                <tr>
+                  <th mat-sort-header="nama_tempat"> No</th>
+                  <th mat-sort-header="tanggal">No. Ref</th>
+                  <th mat-sort-header="transaksi">Tgl. Transfer</th>
+                  <th mat-sort-header="id_transaksi" *ngIf="tipeUser != 5">Penerima</th>
+                  <th mat-sort-header="id_transaksi" *ngIf="tipeUser == 5">Pengirim</th>
+                  <th mat-sort-header="metode">Total Transfer</th>
+                  <th mat-sort-header="total">Bukti Transfer</th>
+                  <th mat-sort-header="email" *ngIf="tipeUser == 1">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="table-border-bottom-0">
+                  <tr *ngIf="realisasi?.length === 0">
+                      <td colspan="7" class="text-center">Tidak Ada Data</td>
+                  </tr>
+                <tr *ngFor="let real of realisasi; let i = index">
+                  <td>{{i + 1}}</td>
+                  <td>{{real.no_ref}}</td>
+                  <td>{{real.tanggal_transfer}}</td>
+                  <td *ngIf="tipeUser != 5">{{real.penerima}}</td>
+                  <td *ngIf="tipeUser == 5">Adhimatratama</td>
+                  <td>{{real.total_transfer | currency: 'Rp.'}}</td>
+                  <td>
+                    <a [href]="real.bukti_url" target="_blank">Unduh</a>
+                  </td>
+                  <td *ngIf="tipeUser == 1">
+                      <a class="btn btn-sm btn-success text-white"  matTooltip="Ubah"
+                      matTooltipPosition="above" style="margin-right: 15px;" (click)="onAdd(real)"
+                      ><i class="bx bx-edit-alt"></i></a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <ngb-pagination
+          class="d-flex justify-content-end mt-3"
+          [(page)]="page"
+          [pageSize]="offset"
+          (pageChange)="getRealisasi($event)"
+          [collectionSize]="this.totalRealisasi">
+        </ngb-pagination>
+      </div>
+      <!--/ Basic Bootstrap Table -->
+    </div>
+</div>

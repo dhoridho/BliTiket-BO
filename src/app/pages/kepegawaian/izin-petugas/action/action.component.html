@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-md-6 pl-0">
+            <h3> <b> {{data ? 'Ubah' : 'Tambah'}} Izin Petugas</b></h3>
+        </div>
+        <div class="col-md-6 text-right pr-0 d-flex justify-content-end ">
+            <span [mat-dialog-close]><i class="fas fa-times"></i></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal form-material">
+                <div class="mb-3">
+                    <label class="form-label">Nama Petugas</label>
+                    <select class="form-select"  name="PetugasData" [(ngModel)]="IzinData.id_pegawai">
+                      <option *ngFor="let value of petugas" [value]="value.id">{{value.nama}}</option>
+                    </select>
+                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tanggal</label>
+                        <input type="date" name="tanggal" id="tanggall" [(ngModel)]="IzinData.tanggal"
+                            class="form-control"> 
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <input type="text" name="alamat" [(ngModel)]="IzinData.deskripsi"
+                            class="form-control" placeholder="Silahkan isi deskripsi"> 
+                    </div>
+                <div class="mb-3">
+                    <label class="form-label">Nama Petugas Pengganti</label>
+                    <select class="form-select"  name="PetugasPenggantiData" [(ngModel)]="IzinData.id_pegawai_pengganti">
+                      <option *ngFor="let value of petugas" [value]="value.id">{{value.nama}}</option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12 pl-0 d-flex justify-content-end">
+                        <button class="btn btn-success" (click)="submitData()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

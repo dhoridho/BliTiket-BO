@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="card-header">Kendaraan</h2>
+        </div>
+        <div class="col-6 d-flex justify-content-end align-items-center">
+            <a class="btn btn-primary text-white" style="margin-right: 15px;" (click)="action()"  matTooltip="Tambah Kendaraan"
+            matTooltipPosition="above" ><i class="bx bx-plus"></i> Tambah</a>
+        </div>
+    </div>
+    <div class="table-responsive text-nowrap">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Jenis Kendaraan</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          <tr *ngFor="let value of kendaraan">
+            <td>{{value.nama_jenis_kendaraan}}</td>
+            <td>
+                  <a class="btn btn-sm btn-success text-white" (click)="action(value)"  matTooltip="Ubah"
+                  matTooltipPosition="above" style="margin-right: 15px;" 
+                    ><i class="bx bx-edit-alt"></i></a>
+                  <a class="btn btn-sm btn-danger text-white"  matTooltip="Hapus"
+                  matTooltipPosition="above" (click)="confirmBox(value.id)" style="margin-right: 15px;"
+                    ><i class="bx bx-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ngb-pagination
+      class="d-flex justify-content-end mt-3"
+      [(page)]="page"
+      [pageSize]="offset"
+      (pageChange)="getAllData($event)"
+      [collectionSize]="totalData">
+    </ngb-pagination>
+  </div>
